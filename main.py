@@ -3,7 +3,6 @@ from core.models import *
 from core.requests import UserCreateRequest
 from core.responses import *
 
-
 # http://127.0.0.1:8000/docs
 # http://127.0.0.1:8000/redoc
 
@@ -11,7 +10,7 @@ app = FastAPI()
 
 @app.post("/create-user", response_model=BaseResponse)
 async def createUser(request: UserCreateRequest):
-  print(request)
+  
 
   return BaseResponse(info=info, payload=user)
 
