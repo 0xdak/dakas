@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
@@ -14,28 +15,11 @@ class Info(BaseModel):
   code    : Optional[int]  = None
   message : Optional[str]  = None
   
-
 class User(Base):
   __tablename__ = 'users'
   id          = Column(Integer, primary_key=True)
-  email       = Column(String)
-  password    = Column(String)
-  firstname   = Column(String)
-  lastname    = Column(String)
-  about       = Column(String)
-  # isActive    = Column(Boolean)
-  # createdDate = Column(String)
+  email       = Column(String(255))
 
-  # # converting UserCreateRequest to User class to save to database...
-  # # UserCreateRequest --> User 
-  # def __init__(self, userCreateRequest: UserCreateRequest) -> UserCreateRequest:
-  #   self.email       = userCreateRequest.email
-  #   self.password    = userCreateRequest.password
-  #   self.firstname   = userCreateRequest.firstname
-  #   self.lastname    = userCreateRequest.lastname
-  #   self.about       = userCreateRequest.about
-  #   self.isActive    = False
-
-  # TODO user_id??
-  
+  def __init__(self, userCreateRequest):
+    self.email = userCreateRequest.email
 

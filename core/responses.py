@@ -10,14 +10,10 @@ class BaseResponse(GenericModel, Generic[T]):
   info    : Info
   payload : T
 
-@dataclass
+# @dataclass
 class UserResponse(BaseModel):
   # userId      : str
-  email       : str
-  password    : str
-  firstname   : str
-  lastname    : str
-  about       : str
+  email       : str = None
   # isActive    : bool = False
   # createdDate : str  = None
   class Config:

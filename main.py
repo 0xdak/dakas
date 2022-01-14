@@ -10,17 +10,21 @@ from core.responses import *
 app = FastAPI()
 
 @app.post("/create-user", response_model=BaseResponse[UserResponse])
-async def createUser(userCreateRequest: UserCreateRequest):
+async def createUser(request: UserCreateRequest):
   print("/create-user")
   # database'e kayıt edilecek
   info = Info(success=True, code=100, message="Kullanıcı başarıyla oluşturuldu.") # ??TODO
   # TODO eğer herşey tamamsa   
-  print(userCreateRequest.__dict__)
-  user = User(userCreateRequest)   # --> db'ye kaydedilecek
-  print(user.__dict__)
-  """
-    USERI DB YE KAYDET
-  """
+  
+  user = User(userCreateRequest = request)
+  # user = User(userCreateRequest)   # --> db'ye kaydedilecek
+  # print(user.__dict__)
+  
+  # """
+  #   USERI DB YE KAYDET
+  # """
+  # userResponse = UserResponse.from_orm(user)
+  # return BaseResponse(info=info, payload=userResponse)
   userResponse = UserResponse.from_orm(user)
   return BaseResponse(info=info, payload=userResponse)
 
