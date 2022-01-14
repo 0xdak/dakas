@@ -1,5 +1,5 @@
 from mimetypes import init
-from config import config
+from core.database.config import config
 from pydantic import BaseModel
 
 from sqlalchemy import create_engine
@@ -16,15 +16,20 @@ class DatabaseManager():
     session: sessionmaker
 
     def __init__(self):
-        engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+        print("Creating Database Engine...")
+        engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost:5433/postgres')
         # create a configured "Session" class
+        print("Binding Database Engine...")
         Session = sessionmaker(bind=engine)
 
+
         # create a Session
+        print("Creating Database Session...")
         self.session = Session()
+        
 
     def add(self, any):
-        self.session.add(any)
+        print(f"Adding {type(any)} to database...")
 
 
     def deneme():

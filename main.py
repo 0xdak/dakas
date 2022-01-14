@@ -1,5 +1,6 @@
 import email
 from fastapi import FastAPI
+from core.database.database import DatabaseManager
 from core.models import *
 from core.requests import UserCreateRequest
 from core.responses import *
@@ -13,17 +14,21 @@ app = FastAPI()
 async def createUser(request: UserCreateRequest):
   print("/create-user")
   # database'e kayıt edilecek
-  info = Info(success=True, code=100, message="Kullanıcı başarıyla oluşturuldu.") # ??TODO
+  info = Info(success=True, code=200, message="Kullanıcı başarıyla oluşturuldu.") # ??TODO
   # TODO eğer herşey tamamsa   
   
   user = User(userCreateRequest = request)
   # """
   #   USERI DB YE KAYDET
   # """
+  db = DatabaseManager()
+  db.session.add(user)
+  db.session.commit()
+  db.session.close()
   userResponse = UserResponse.from_orm(user)
   return BaseResponse(info=info, payload=userResponse)
 
-@app.get("/get-user/{user_id}", response_model=BaseResponse[UserResponse]) # TODO response_model=Response(Info, User)
+@app.get("/get-user/{user_id}", response_model=BaseResponse[UserResponse])
 async def getUser(user_id: str):
   info = Info(success=True, code=100, message="Hata yok.")
   user = User(username="ali", email="ali@gmail.com")

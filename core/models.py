@@ -18,21 +18,21 @@ class Info(BaseModel):
 class User(Base):
   __tablename__ = 'users'
   id          = Column(Integer, primary_key=True)
-  email       = Column(String)
-  password    = Column(String)
+  email       = Column(String, nullable=False)
+  password    = Column(String, nullable=False)
   firstname   = Column(String)
   lastname    = Column(String)
   about       = Column(String)
   isActive    = Column(Boolean)
   createdDate = Column(String)
 
-  # TODO cleaner way?
+  # TODO cleaner way? dict cevrilebilir
   def __init__(self, userCreateRequest):
     self.email       = userCreateRequest.email
     self.password    = userCreateRequest.password
     self.firstname   = userCreateRequest.firstname
     self.lastname    = userCreateRequest.lastname
-    self.about       = userCreateRequest.email
+    self.about       = userCreateRequest.about
     self.isActive    = False
     self.createdDate = ""
 
