@@ -1,9 +1,33 @@
-import psycopg2
+from mimetypes import init
 from config import config
 from pydantic import BaseModel
 
-class Database(BaseModel):
-    def connect():
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from core.models import User
+
+params = config()
+print(params["host"])
+
+
+
+class DatabaseManager():
+    session: sessionmaker
+
+    def __init__(self):
+        engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+        # create a configured "Session" class
+        Session = sessionmaker(bind=engine)
+
+        # create a Session
+        self.session = Session()
+
+    def add(self, any):
+        self.session.add(any)
+
+
+    def deneme():
         """ Connect to the PostgreSQL database server """
         conn = None
         try:
@@ -28,4 +52,4 @@ class Database(BaseModel):
                 print('Database connection closed.')
 
 # connect()
-conn = psycopg2.connect("dbname=postgres user=postgres password=postgres")
+# conn = psycopg2.connect("dbname=postgres user=postgres password=postgres")
