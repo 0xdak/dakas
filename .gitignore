@@ -4,3 +4,4 @@ python tricks.py
 __pycache__/*
 core/__pycache__/*
 core/database/__pycache__/*
+.vscode/extensions.json

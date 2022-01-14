@@ -4,5 +4,8 @@ from typing import Optional
 from core.models import *
 
 class UserCreateRequest(BaseModel):
-  email:str
-  
+  email     : str
+  password  : str
+  firstname : str
+  lastname  : str
+  about     : str

@@ -17,14 +17,9 @@ async def createUser(request: UserCreateRequest):
   # TODO eğer herşey tamamsa   
   
   user = User(userCreateRequest = request)
-  # user = User(userCreateRequest)   # --> db'ye kaydedilecek
-  # print(user.__dict__)
-  
   # """
   #   USERI DB YE KAYDET
   # """
-  # userResponse = UserResponse.from_orm(user)
-  # return BaseResponse(info=info, payload=userResponse)
   userResponse = UserResponse.from_orm(user)
   return BaseResponse(info=info, payload=userResponse)
 
