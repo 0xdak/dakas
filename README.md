@@ -1,5 +1,5 @@
 # dakas
 
-Kitap takası amaçlı REST API yazılımı.
+Kitap takası konulu REST API yazılımı.
 
 Python, FastAPI, PostgreSQL
