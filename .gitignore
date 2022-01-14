@@ -1,4 +1,6 @@
 .venv/*
 database.ini
 python tricks.py
-__pycache__/
+__pycache__/*
+core/__pycache__/*
+core/database/__pycache__/*

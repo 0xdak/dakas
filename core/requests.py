@@ -11,8 +11,8 @@ class UserCreateRequest(BaseModel):
   about       : Optional[str] = None
   
   def __init__(self, user):
-    self.email = user.email
-    self.password = user.password
+    self.email     = user.email
+    self.password  = user.password
     self.firstname = user.firstname
-    self.lastname = user.lastname
-    self.about = user.about
+    self.lastname  = user.lastname
+    self.about     = user.about
