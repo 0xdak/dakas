@@ -1,3 +1,4 @@
+from distutils.log import error
 from mimetypes import init
 from core.database.config import config
 from pydantic import BaseModel
@@ -5,33 +6,39 @@ from pydantic import BaseModel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from datetime import datetime
 
 
-
+LOG_FILE = "dakas.log"
 
 class DatabaseManager():
-    session: sessionmaker
+    session = None
 
     def __init__(self):
         params = config()
-        database_config = f'postgresql+psycopg2://' + \
-            f'{params["user"]}:' + \
-            f'{params["password"]}@' + \
-            f'{params["host"]}:5433/' + \
-            f'{params["database"]}'
 
-        print("Creating Database Engine...")
-        engine = create_engine(database_config)
-        # create a configured "Session" class
-        print("Binding Database Engine...")
-        Session = sessionmaker(bind=engine)
+        try:
+            database_config = f'postgresql+psycopg2://' + \
+                f'{params["user"]}:' + \
+                f'{params["password"]}@' + \
+                f'{params["host"]}:5433/' + \
+                f'{params["database"]}'
+            print("Creating Database Engine...")
+            engine = create_engine(database_config)
+            # create a configured "Session" class
+            print("Binding Database Engine...")
+            Session = sessionmaker(bind=engine)
 
-        # create a Session
-        print("Creating Database Session...")
-        self.session = Session()
-        print("Database is Ready")
+            # create a Session
+            print("Creating Database Session...")
+            self.session = Session()
+            print("Database is Ready")
+        except Exception as e:
+            with open(LOG_FILE, 'a') as f:
+                print(f'{datetime.now()} : {str(e)}', file=f)
 
     def add(self, any):
+        print(*(any.__dict__))
         self.session.add(any)
         self.session.commit()
         self.session.close()

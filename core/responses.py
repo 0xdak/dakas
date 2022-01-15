@@ -22,6 +22,9 @@ class UserResponse(BaseModel):
 
   class Config:
     orm_mode = True
+  # def __init__(self, user: User): # TODO maybe?
+  #   self = self.from_orm(user)
+
 
 
 
