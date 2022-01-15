@@ -10,7 +10,7 @@ class BaseResponse(GenericModel, Generic[T]):
   info    : Info
   payload : T
 
-# @dataclass
+
 class UserResponse(BaseModel):
   # TODO userId      : str
   email       : str = ""

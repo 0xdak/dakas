@@ -1,3 +1,4 @@
+from copy import deepcopy
 import email
 from fastapi import FastAPI
 from core.database.database import DatabaseManager
@@ -7,6 +8,8 @@ from core.responses import *
 
 # http://127.0.0.1:8000/docs
 # http://127.0.0.1:8000/redoc
+
+db = DatabaseManager()
 
 app = FastAPI()
 
@@ -21,12 +24,10 @@ async def createUser(request: UserCreateRequest):
   # """
   #   USERI DB YE KAYDET
   # """
-  print(user.createdDate)
-  db = DatabaseManager()
-  db.session.add(user)
-  db.session.commit()
+  print(user.__dict__)
+  user_orm = deepcopy(user)
+  db.add(user_orm)
   userResponse = UserResponse.from_orm(user)
-  db.session.close()
   return BaseResponse(info=info, payload=userResponse)
 
 @app.get("/get-user/{user_id}", response_model=BaseResponse[UserResponse])

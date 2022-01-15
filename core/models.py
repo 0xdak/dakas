@@ -34,5 +34,5 @@ class User(Base):
     self.lastname    = userCreateRequest.lastname
     self.about       = userCreateRequest.about
     self.isActive    = False
-    self.createdDate = datetime.now()
+    self.createdDate = datetime.now()  # TODO format
 
