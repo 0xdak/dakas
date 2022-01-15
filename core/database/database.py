@@ -38,7 +38,8 @@ class DatabaseManager():
                 print(f'{datetime.now()} : {str(e)}', file=f)
 
     def add(self, any):
-        print(*(any.__dict__))
+        print(f'{type(any)} is adding to DB')
+        print(*list(any.__dict__.items()), sep="\n    ")
         self.session.add(any)
         self.session.commit()
         self.session.close()

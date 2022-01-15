@@ -1,4 +1,7 @@
+import code
 from copy import deepcopy
+from distutils.log import ERROR
+from email import message
 from fastapi import FastAPI
 from core.database.database import DatabaseManager
 from core.models import *
@@ -10,6 +13,9 @@ import uvicorn
 
 
 
+ERROR_CODE = 30
+SUCCESS_CODE = 40
+
 db = DatabaseManager()
 app = FastAPI()
 
@@ -18,30 +24,31 @@ if __name__ == "__main__":
     print("Failed Starting Database")
     print("Quitting...")
     exit()
-  uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
 
 
+# creates user with given request
 @app.post("/create-user", response_model=BaseResponse[UserResponse])
-async def createUser(request: UserCreateRequest):
+async def createUser(userCreateRequest: UserCreateRequest):
   print("/create-user")
-  # database'e kayıt edilecek
-  info = Info(success=True, code=200, message="Kullanıcı başarıyla oluşturuldu.") # ??TODO
-  # TODO eğer herşey tamamsa   
   
-  user = User(userCreateRequest = request)
-  # """
-  #   USERI DB YE KAYDET
-  # """
+  if (userCreateRequest.email == '' or userCreateRequest.password == ''): # TODO cleaner
+    info = Info(success=False, code=ERROR_CODE, message="Email ve Şifre Alanı Boş Bırakılamaz")
+    return BaseResponse(info=info)
+  
+  user = User(userCreateRequest = userCreateRequest)
+  
+  # ~~saving to db
   user_orm = deepcopy(user)
   db.add(user_orm)
+  # saving to db~~
   userResponse = UserResponse.from_orm(user)
+  info = Info(success=True, code=SUCCESS_CODE, message="Kullanıcı Başarıyla Oluşturuldu.")
   return BaseResponse(info=info, payload=userResponse)
 
 
-
-
-@app.get("/get-user/{user_id}", response_model=BaseResponse[UserResponse])
-async def getUser(user_id: str):
+# TODO user_id
+@app.get("/get-user/{id}", response_model=BaseResponse[UserResponse])
+async def getUser(id: str):
   info = Info(success=True, code=100, message="Hata yok.")
   user = User(username="ali", email="ali@gmail.com")
   return BaseResponse(info=info, payload=user)

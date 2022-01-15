@@ -8,7 +8,7 @@ from core.models import *
 T = TypeVar('T')
 class BaseResponse(GenericModel, Generic[T]):
   info    : Info
-  payload : T
+  payload : T = None
 
 
 class UserResponse(BaseModel):
@@ -24,8 +24,5 @@ class UserResponse(BaseModel):
     orm_mode = True
   # def __init__(self, user: User): # TODO maybe?
   #   self = self.from_orm(user)
-
-
-
 
 
