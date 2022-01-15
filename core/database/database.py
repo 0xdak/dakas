@@ -8,8 +8,11 @@ from sqlalchemy.orm import sessionmaker
 from core.models import User
 
 params = config()
-print(params["host"])
-
+database_config = f'postgresql+psycopg2://\
+    {params["user"]}:\
+    {params["password"]}@\
+    {params["host"]}:5433/\
+    {params["database"]}'
 
 
 class DatabaseManager():
@@ -17,7 +20,7 @@ class DatabaseManager():
 
     def __init__(self):
         print("Creating Database Engine...")
-        engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost:5433/postgres')
+        engine = create_engine(database_config)
         # create a configured "Session" class
         print("Binding Database Engine...")
         Session = sessionmaker(bind=engine)
