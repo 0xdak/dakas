@@ -1,1 +1,0 @@
-#1 userId Column type will be change to UUID, now it's storing as str(uuid) in string column
