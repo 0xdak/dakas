@@ -21,11 +21,12 @@ async def createUser(request: UserCreateRequest):
   # """
   #   USERI DB YE KAYDET
   # """
+  print(user.createdDate)
   db = DatabaseManager()
   db.session.add(user)
   db.session.commit()
-  db.session.close()
   userResponse = UserResponse.from_orm(user)
+  db.session.close()
   return BaseResponse(info=info, payload=userResponse)
 
 @app.get("/get-user/{user_id}", response_model=BaseResponse[UserResponse])

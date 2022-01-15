@@ -24,7 +24,7 @@ class User(Base):
   lastname    = Column(String)
   about       = Column(String)
   isActive    = Column(Boolean)
-  createdDate = Column(String)
+  createdDate = Column(Date)
 
   # TODO cleaner way? dict cevrilebilir
   def __init__(self, userCreateRequest):
@@ -34,5 +34,5 @@ class User(Base):
     self.lastname    = userCreateRequest.lastname
     self.about       = userCreateRequest.about
     self.isActive    = False
-    self.createdDate = ""
+    self.createdDate = datetime.now()
 

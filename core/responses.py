@@ -18,7 +18,7 @@ class UserResponse(BaseModel):
   lastname    : str = ""
   about       : str = ""
   isActive    : bool = False
-  createdDate : str  = ""
+  createdDate : date  = None
 
   class Config:
     orm_mode = True
