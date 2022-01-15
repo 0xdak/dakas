@@ -1,11 +1,10 @@
-from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
+import uuid
 from pydantic import BaseModel
-from core.requests import UserCreateRequest
-
+from sqlalchemy.dialects.postgresql import UUID
 from requests import *
-from sqlalchemy import Column, String, Integer, Date, Boolean
+from sqlalchemy import Column, String, Integer, Date, Boolean, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
@@ -18,6 +17,7 @@ class Info(BaseModel):
 class User(Base):
   __tablename__ = 'users'
   id          = Column(Integer, primary_key=True)
+  userId     = Column(String)    # TODO UUID OLACAK
   email       = Column(String, nullable=False)
   password    = Column(String, nullable=False)
   firstname   = Column(String)
@@ -35,4 +35,5 @@ class User(Base):
     self.about       = userCreateRequest.about
     self.isActive    = False
     self.createdDate = datetime.now()  # TODO format
+    self.userId = str(uuid.uuid4())   # TODO UUID OTOMATIK OLACAK
 

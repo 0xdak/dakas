@@ -43,4 +43,5 @@ class DatabaseManager():
         self.session.add(any)
         self.session.commit()
         self.session.close()
+    
         

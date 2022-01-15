@@ -1,9 +1,9 @@
-from dataclasses import dataclass
 from datetime import date
-from optparse import Option
 from typing import Generic, TypeVar
+import uuid
 from pydantic.generics import GenericModel
 from core.models import *
+from sqlalchemy.dialects.postgresql import UUID
 
 T = TypeVar('T')
 class BaseResponse(GenericModel, Generic[T]):
@@ -13,6 +13,7 @@ class BaseResponse(GenericModel, Generic[T]):
 
 class UserResponse(BaseModel):
   # TODO userId      : str
+  userId     : str = ""
   email       : str = ""
   firstname   : str = ""
   lastname    : str = ""
