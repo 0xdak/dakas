@@ -13,7 +13,7 @@
     and saves it to database
     returns UserResponse 
 
-## XXX | /get-user{userId}   GET
+## VVV | /get-user{userId}   GET
     takes user which's userId == given userId
     converts this to UserResponse
     returns converted UserResponse
