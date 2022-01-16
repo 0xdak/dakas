@@ -32,7 +32,7 @@ async def createUser(userCreateRequest: UserCreateRequest):
   print("/create-user")
 
   # TODO emailin valid olup olmadıgı kontrol edilecek, mail gondererek???
-  if (re.fullmatch(regex, userCreateRequest.email) is False):
+  if (re.fullmatch(regex, userCreateRequest.email) is True):
     info = Info(success=False, code=ERROR_CODE, message="Geçersiz Email Adresi")
     return BaseResponse(info=info)
 
@@ -52,13 +52,21 @@ async def createUser(userCreateRequest: UserCreateRequest):
   return BaseResponse(info=info, payload=userResponse)
 
 
-# TODO user_id
 @app.get("/get-user/{user_id}", response_model=BaseResponse[UserResponse])
-async def getUser(id: str):
-  user = db.getWithId(User, id)
+async def getUser(user_id: str):
+  # user = db.getWithId(User, id)
+  
+  # users = db.session.query(User).all()
+  user = db.session.query(User) \
+    .filter(User.userId == user_id) \
+    .first()
+  if (user is None):
+    info = Info(success=False, code=ERROR_CODE, message="Kullanıcı Bulunamadı.")
+    return BaseResponse(info=info)
 
-  info = Info(success=True, code=100, message="Hata yok.")
-  return BaseResponse(info=info, payload=user)
+  userResponse = UserResponse.from_orm(user)
+  info = Info(success=True, code=SUCCESS_CODE, message="Kullanıcı bulundu.")
+  return BaseResponse(info=info, payload=userResponse)
 
 
 # auth = request.headers.get("Authorization", None)

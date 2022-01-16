@@ -22,9 +22,13 @@
     LoginRequest():
       email    : str
       password : str
+
+    LoginResponse():
+      token  : str
+      userId : str
     
     firebase can be used.
     
     if the given values are correct, takes user in 
-    returns token
+    returns LoginResponse
   
