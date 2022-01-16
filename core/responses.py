@@ -12,7 +12,6 @@ class BaseResponse(GenericModel, Generic[T]):
 
 
 class UserResponse(BaseModel):
-  # TODO userId      : str
   userId     : str = ""
   email       : str = ""
   firstname   : str = ""
