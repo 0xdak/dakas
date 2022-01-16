@@ -17,7 +17,7 @@ class Info(BaseModel):
 class User(Base):
   __tablename__ = 'users'
   id          = Column(Integer, primary_key=True)
-  userId     = Column(String)    # TODO UUID OLACAK
+  userId      = Column(String)    # TODO UUID OLACAK
   email       = Column(String, nullable=False)
   password    = Column(String, nullable=False)
   firstname   = Column(String)
