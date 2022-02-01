@@ -14,24 +14,25 @@
 
     +creates user:User with given userCreateRequest
     +and saves it to database
-    +returns UserResponse 
+    +returns UserResponse with 201
 
 ## VVV | /get-user{userId}   GET
     +takes user which's userId == given userId
     +converts this to UserResponse
-    +returns converted UserResponse
+    +returns the UserResponse with 200
 
 ## XXX | /login POST {loginRequest: LoginRequest}
-    -LoginRequest():
+    +LoginRequest():
       email    : str
       password : str
 
-    -LoginResponse():
-      token  : str
-      userId : str
-    
-    -firebase can be used.
-    
-    -if the given values are correct, takes user in 
-    -returns LoginResponse
+    +LoginResponse():
+      access_token : str
+      tokenType    : str
+      userId       : str
+      tokenExpires : timedelta
+
+    +if the given values are correct
+    +generates bearer token for user
+    +returns LoginResponse with 200
   
