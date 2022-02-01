@@ -16,7 +16,7 @@ class Info(BaseModel):
   
 class User(Base):
   __tablename__ = 'users'
-  id          = Column(Integer, primary_key=True)
+  id          = Column(Integer, primary_key=True, nullable=False)
   userId      = Column(String)    # TODO UUID OLACAK
   email       = Column(String, nullable=False)
   password    = Column(String, nullable=False)
@@ -25,6 +25,7 @@ class User(Base):
   about       = Column(String)
   isActive    = Column(Boolean)
   createdDate = Column(Date)
+  disabled    = Column(Boolean)
 
   # TODO cleaner way? dict cevrilebilir
   def __init__(self, userCreateRequest):
@@ -35,5 +36,5 @@ class User(Base):
     self.about       = userCreateRequest.about
     self.isActive    = False
     self.createdDate = datetime.now()  # TODO format
-    self.userId = str(uuid.uuid4())   # TODO UUID OTOMATIK OLACAK
-
+    self.userId      = str(uuid.uuid4())   # TODO UUID OTOMATIK OLACAK
+    self.disabled    = False

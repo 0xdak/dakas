@@ -15,6 +15,8 @@ class DatabaseManager():
     session = None
 
     def __init__(self):
+        if self.session is not None:
+            return # TODO is it dangerous???
         params = config()
 
         try:
