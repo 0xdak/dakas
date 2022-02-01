@@ -9,3 +9,7 @@ class UserCreateRequest(BaseModel):
   firstname : str
   lastname  : str
   about     : str
+
+class LoginRequest(BaseModel):
+  email    : str
+  password : str
